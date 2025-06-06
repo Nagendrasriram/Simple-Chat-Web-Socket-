@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<script src="script.js" type="module"></script>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        min-height: 100vh;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    #message-container {
+        width: 100%;
+        max-width: 700px;
+        height: 350px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    #message-container div {
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        background-color: #e7f3ff;
+        color: #333;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    #form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 700px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        margin-top: 10px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+        border-color: #007bff;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    #send-button {
+        background-color: #28a745;
+    }
+
+    #send-button:hover {
+        background-color: #218838;
+    }
+
+    @media (max-width: 768px) {
+        #form, #message-container {
+            width: 100%;
+        }
+
+        input[type="text"] {
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            font-size: 16px;
+        }
+    }
+</style>
+
+<title>Document</title>
+</head>
+<body>
+<div id="message-container"></div>
+<form id = "form">
+    <label for = "message-input">Message</label>
+    <input type = "text" id="message-input">
+    <button type="submit" id="send-button">Send</button>
+    <label for="room-input">Room</label>
+    <input type="text" id="room-input">
+    <button type="button" id="room-button">Join</button>
+</form>
+</body>
+</html>

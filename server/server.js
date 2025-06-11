@@ -1,19 +1,26 @@
-// server.js
-const { instrument } = require('@socket.io/admin-ui');
-const { Server } = require('socket.io');
+const path = require("path");
+const express = require("express");
+const { Server } = require("socket.io");
+const http = require("http");
+const { instrument } = require("@socket.io/admin-ui");
 
-// Create the Socket.IO server
-const io = new Server(3000, {
+const app = express();
+const server = http.createServer(app);
+
+const io = new Server(server, {
     cors: {
         origin: ["http://localhost:8080", "http://127.0.0.1:5500", "https://admin.socket.io"],
         credentials: true,
     }
 });
 
+// 👇 Serve static frontend from ../client folder
+const clientPath = path.join(__dirname, "../client");
+app.use(express.static(clientPath));
+
 // ======== USER NAMESPACE SETUP ========
 const userIo = io.of('/user');
 
-// Middleware to authenticate user
 userIo.use((socket, next) => {
     const token = socket.handshake.auth.token;
     if (token) {
@@ -24,7 +31,6 @@ userIo.use((socket, next) => {
     }
 });
 
-// Handle connections to /user namespace
 userIo.on("connection", (socket) => {
     console.log("User namespace connected:", socket.username);
     socket.emit("receive-message", `Welcome ${socket.username}!`);
@@ -54,11 +60,13 @@ io.on('connection', (socket) => {
     });
 });
 
-// Dummy function to simulate token decoding
 function getUsernameFromToken(token) {
-    // In production, decode token here using JWT or other method
     return token;
 }
 
-// Integrate Socket.IO Admin UI
+// Admin UI
 instrument(io, { auth: false });
+
+server.listen(3000, () => {
+    console.log("✅ Server running at http://localhost:3000");
+});
